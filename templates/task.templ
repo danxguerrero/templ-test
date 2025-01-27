@@ -1,11 +1,28 @@
 package templates
 
-templ task(id int, title string, completed bool) {
-    <li id="task-{{id}}">
-        <span style="{{ if completed }} text-decoration: line-through;{{ end }}">{{ title }}</span>
-        <button hx-post="/toggle?id={{ id }}" hx-target="#task-{{id}}" hx-swap="outerHTML">
-            {{ if completed }}Undo{{ else }}Complete{{ end }}
-        </button>
-        <button hx-post="/delete?id={{id}}" hx-target="#task-{{id}}" hx-swap="outerHTML">Delete</button>
-    </li>
+import "strconv"
+
+func ternary(condition bool, trueVal, falseVal string) string {
+	if condition {
+		return trueVal
+	}
+	return falseVal
+}
+
+templ Task(id int, title string, completed bool) {
+	<li id={ "task-" + strconv.Itoa(id) }>
+		if completed {
+			<span style="text-decoration: line-through">{ title }</span>
+		} else {
+			<span>{ title }</span>
+		}
+		<button hx-post={ "/toggle?id=" + strconv.Itoa(id) } hx-target={ "#task-" + strconv.Itoa(id) } hx-swap="outerHTML">
+			if completed {
+				"Undo"
+			} else {
+				"Complete"
+			}
+		</button>
+		<button hx-post={ "/delete?id=" + strconv.Itoa(id) } hx-target={ "#task-" + strconv.Itoa(id) } hx-swap="outerHTML">Delete</button>
+	</li>
 }
