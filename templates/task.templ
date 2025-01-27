@@ -1,0 +1,11 @@
+package templates
+
+templ task(id int, title string, completed bool) {
+    <li id="task-{{id}}">
+        <span style="{{ if completed }} text-decoration: line-through;{{ end }}">{{ title }}</span>
+        <button hx-post="/toggle?id={{ id }}" hx-target="#task-{{id}}" hx-swap="outerHTML">
+            {{ if completed }}Undo{{ else }}Complete{{ end }}
+        </button>
+        <button hx-post="/delete?id={{id}}" hx-target="#task-{{id}}" hx-swap="outerHTML">Delete</button>
+    </li>
+}
