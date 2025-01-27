@@ -1,9 +1,6 @@
 package main
 
 import (
-	"net/http"
-
-
 	"github.com/danxguerrero/templ-test/handlers"
 	"github.com/labstack/echo/v4"
 )

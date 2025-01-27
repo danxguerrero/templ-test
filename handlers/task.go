@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 	"strconv"
-	"templ-test/data"
-	"templ-test/templates"
+	"github.com/danxguerrero/templ-test/data"
+	"github.com/danxguerrero/templ-test/templates"
 
 	"github.com/labstack/echo/v4"
 )
@@ -17,7 +17,7 @@ func AddTask(c echo.Context) error {
 	title := c.FormValue("title")
 	data.AddTask(title)
 	newTask := data.Tasks[len(data.Tasks)-1]
-	return templates.Task(newTask.ID, newTask.title, newTask.completed).Render(c.Request().Context(), c.Response().Writer)
+	return templates.Task(newTask.ID, newTask.Title, newTask.Completed).Render(c.Request().Context(), c.Response().Writer)
 }
 
 func ToggleTask(c echo.Context) error {
